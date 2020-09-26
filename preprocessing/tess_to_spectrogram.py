@@ -15,14 +15,16 @@ def searchDir():
     myPath = './TESS/'
 
     for fDir in listdir( myPath ):
+        if fDir=='.DS_Store':
+            pass
+        else:
+            strEmo = getStrEmo( fDir )
+            audioDir = myPath + fDir
+            for fA in listdir( audioDir ):
 
-        strEmo = getStrEmo( fDir )
-        audioDir = myPath + '/' + fDir
-        for fA in listdir( audioDir ):
-
-            audioPath = audioDir + '/' + fA
-            specto = getSpectrogrm( audioPath )
-            saveImg( specto, strEmo, fA )
+                audioPath = audioDir + '/' + fA
+                specto = getSpectrogrm( audioPath )
+                saveImg( specto, strEmo, fA )
 
 
 
