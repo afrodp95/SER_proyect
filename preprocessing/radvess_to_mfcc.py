@@ -2,8 +2,11 @@ import numpy as np
 import pandas as pd 
 import os 
 import librosa 
+import joblib
 #import wave # read and write WAV files
 import matplotlib.pyplot as plt 
+
+import tensorflow as tf
 
 def extract_mfcc(wav_file_name):
     #This function extracts mfcc features and obtain the mean of each dimension
@@ -17,7 +20,6 @@ def extract_mfcc(wav_file_name):
 
 ravdess_data = []
 ravdess_numeric_labels = []
-ravdess_labels = []
 
 i = 0
 for dirname, _, filenames in os.walk('./RAVDESS/'):
@@ -30,10 +32,7 @@ for dirname, _, filenames in os.walk('./RAVDESS/'):
             ravdess_data.append(extract_mfcc(wav_file_name)) # extract MFCC features/file
     i+=1
         
-print("Finish Loading the Dataset")
+print("Carga y conversión finalizada")
 
-
-for dirname,dirs, filenames in os.walk('./RAVDESS/'):
-    print(dirname)
-    print(dirs)
-    print(filenames)
+ravdess_data = np.asarray(ravdess_data)
+ravdess_numeric_labels = np.array(ravdess_numeric_labels)
