@@ -6,7 +6,9 @@ import joblib
 #import wave # read and write WAV files
 import matplotlib.pyplot as plt 
 
+
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 
 def extract_mfcc(wav_file_name):
     #This function extracts mfcc features and obtain the mean of each dimension
@@ -36,3 +38,8 @@ print("Carga y conversión finalizada")
 
 ravdess_data = np.asarray(ravdess_data)
 ravdess_numeric_labels = np.array(ravdess_numeric_labels)
+ravdess_target = tf.keras.utils.to_categorical(ravdess_numeric_labels)
+
+joblib.dump(ravdess_data,"./models/ravdess_speech_data.gz")
+joblib.dump(ravdess_numeric_labels,"./models/ravdess_numeric_labels.gz")
+joblib.dump(ravdess_target,"./models/ravdess_target.gz")

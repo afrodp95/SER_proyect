@@ -9,9 +9,10 @@ def main():
 
 #------------------------------------------------------------------------------
 def searchDir():
-    myPath = "/home/david/"
-    myPath += "Documentos/Universidad/9no Semestre/Sistemas Inteligentes/Proyecto/TESS Toronto emotional speech set" \
-              " data/"
+    # myPath = "/home/david/"
+    # myPath += "Documentos/Universidad/9no Semestre/Sistemas Inteligentes/Proyecto/TESS Toronto emotional speech set" \
+    #           " data/"
+    myPath = './TESS/'
 
     for fDir in listdir( myPath ):
 
@@ -48,7 +49,7 @@ def saveImg( specto, emotion, nameSpecto ):
     print(nameSpecto)
     nameSpecto += "png"
     newName = emotion + "_" + nameSpecto
-    savePath = "/home/david/Documentos/Universidad/9no Semestre/Sistemas Inteligentes/Proyecto/spectrograms/" + newName
+    savePath = "./models/spectograms/" + newName
     specto.savefig( savePath )
 
 #------------------------------------------------------------------------------
