@@ -23,7 +23,7 @@ ravdess_numeric_labels = joblib.load('./models/ravdess_target.gz')
 x_train,x_test,y_train,y_test= train_test_split(np.array(ravdess_data),
                                                 ravdess_target,
                                                 stratify=ravdess_numeric_labels,
-                                                test_size=0.20, random_state=123)
+                                                test_size=0.1, random_state=123)
 
 x_train = np.expand_dims(x_train,-1)
 x_test = np.expand_dims(x_test,-1)
@@ -40,6 +40,9 @@ model.add(layers.Dropout(0.4))
 model.add(layers.Dense(8,activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
 train_hist = model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=100,shuffle=True)
+
+### Plot model 
+plot_model(model,"lstm_rnn2_architecture.png",show_shapes=True,rankdir='LR')
 
 
 ### loss plots using LSTM model
