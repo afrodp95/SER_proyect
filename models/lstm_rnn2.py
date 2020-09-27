@@ -6,13 +6,13 @@ import joblib
 #import wave # read and write WAV files
 import matplotlib.pyplot as plt 
 
-
 import tensorflow as tf
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras import layers
 #from tensorflow.keras.optimizers import rmsprop
 from sklearn.model_selection import train_test_split
+from tensorflow.keras.utils import plot_model
 
 ### Load data
 ravdess_data = joblib.load('./models/ravdess_speech_data.gz')
@@ -29,8 +29,6 @@ x_train = np.expand_dims(x_train,-1)
 x_test = np.expand_dims(x_test,-1)
 
 x_train.shape
-x_test.shape
-y_train.shape
 
 
 ### Lstm
