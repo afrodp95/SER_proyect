@@ -30,7 +30,6 @@ x_test = np.expand_dims(x_test,-1)
 
 x_train.shape
 
-
 ### Lstm
 model = Sequential()
 model.add(layers.LSTM(128,return_sequences=False,input_shape=(40,1)))
