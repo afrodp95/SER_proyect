@@ -1,5 +1,7 @@
 # Mac files
 .DS_Store
+# Vs code files
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

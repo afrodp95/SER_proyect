@@ -35,33 +35,31 @@ y_train.shape
 
 ### Lstm
 model = Sequential()
-model.add(layers.LSTM(256,input_shape=(40,1)))
-model.add(layers.Dense(128,activation='relu'))
-model.add(layers.Dropout(0.2))
+model.add(layers.LSTM(128,return_sequences=False,input_shape=(40,1)))
 model.add(layers.Dense(64,activation='relu'))
-model.add(layers.Dropout(0.2))
+model.add(layers.Dropout(0.4))
 model.add(layers.Dense(32,activation='relu'))
-model.add(layers.Dropout(0.2))
+model.add(layers.Dropout(0.4))
 model.add(layers.Dense(8,activation='softmax'))
-model.add(layers.Dropout(0.2))
 model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
-train_hist = model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=200,shuffle=True)
+train_hist = model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=100,shuffle=True)
+
+
+### loss plots using LSTM model
+loss = train_hist.history['loss']
+val_loss = train_hist.history['val_loss']
+
+epochs = range(1, len(loss) + 1)
+
+plt.plot(epochs, loss, 'ro', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.show()
 
 
 
 
-def create_model():
-    model = Sequential()
-    model.add(layers.LSTM(128, return_sequences=False, input_shape=(40, 1)))
-    model.add(layers.Dense(64))
-    model.add(layers.Dropout(0.4))
-    model.add(Activation('relu'))
-    model.add(Dense(32))
-    model.add(Dropout(0.4))
-    model.add(Activation('relu'))
-    model.add(Dense(8))
-    model.add(Activation('softmax'))
-    
-    # Configures the model for training
-    model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
-    return model
