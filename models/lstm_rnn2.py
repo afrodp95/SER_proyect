@@ -36,9 +36,9 @@ y_train.shape
 ### Lstm
 model = Sequential()
 model.add(layers.LSTM(128,return_sequences=False,input_shape=(40,1)))
-model.add(layers.Dense(128,activation='relu'))
+model.add(layers.Dense(64,activation='relu'))
 model.add(layers.Dropout(0.4))
-model.add(layers.Dense(128,activation='relu'))
+model.add(layers.Dense(32,activation='relu'))
 model.add(layers.Dropout(0.4))
 model.add(layers.Dense(8,activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
@@ -48,7 +48,6 @@ train_hist = model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=10
 ### loss plots using LSTM model
 loss = train_hist.history['loss']
 val_loss = train_hist.history['val_loss']
-
 epochs = range(1, len(loss) + 1)
 
 plt.plot(epochs, loss,marker='.',linestyle='-', label='Pérdida de entrenamiento')
@@ -58,7 +57,6 @@ plt.xlabel('Iteraciones')
 plt.ylabel('Pérdida')
 plt.tight_layout()
 plt.legend()
-
 plt.show()
 
 ### accuracy plots
