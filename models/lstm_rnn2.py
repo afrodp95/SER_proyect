@@ -42,7 +42,7 @@ model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accur
 train_hist = model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=100,shuffle=True)
 
 ### Plot model 
-plot_model(model,"lstm_rnn2_architecture.png",show_shapes=True,rankdir='LR')
+plot_model(model,".models/lstm_rnn2_architecture.png",show_shapes=True,rankdir='LR')
 
 
 ### loss plots using LSTM model
