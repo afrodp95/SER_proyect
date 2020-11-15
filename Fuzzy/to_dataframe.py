@@ -13,4 +13,4 @@ ravdess_data['emotion'] = ravdess_labels
 ravdess_data['emotion'] = ravdess_data['emotion'].replace(mapping) 
 ravdess_data['emotion'].value_counts()
 
-ravdess_data.to_csv("radvess_data.csv")
+ravdess_data.to_csv("./Fuzzy/radvess_data.csv")
