@@ -5,6 +5,7 @@ import librosa
 import joblib
 #import wave # read and write WAV files
 import matplotlib.pyplot as plt 
+import seaborn as sns
 
 import tensorflow as tf
 from tensorflow.keras.utils import to_categorical
@@ -25,6 +26,7 @@ x_train,x_test,y_train,y_test= train_test_split(np.array(ravdess_data),
                                                 ravdess_target,
                                                 stratify=ravdess_numeric_labels,
                                                 test_size=0.1, random_state=123)
+
 
 x_train = np.expand_dims(x_train,-1)
 x_test = np.expand_dims(x_test,-1)
@@ -47,7 +49,6 @@ train_hist = model.fit(x_train,y_train,
                         validation_data=(x_test,y_test),
                         epochs=150,shuffle=True,
                         callbacks=[early_stopping])
-
 
 
 
@@ -80,4 +81,25 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
+### Confussion Matrix
+mapping = {0:"neutral",1:"calm",2:"happy",3:"sad",4:"angry",5:"fearful",6:"disgust",7:"surprised"}
 
+test_df = pd.DataFrame(x_test.reshape(288,40))
+test_df['emotion'] =  y_test.argmax(axis=1)
+test_df['emotion'] = test_df['emotion'].replace(mapping) 
+test_df['emotion'].value_counts()
+
+prediction = model.predict(x_test)
+test_df['emotion_predicted']=prediction.argmax(axis=1)
+test_df['emotion_predicted'] = test_df['emotion_predicted'].replace(mapping) 
+
+cmat = pd.crosstab(test_df['emotion'],test_df['emotion_predicted'])
+
+fig , ax = plt.subplots(figsize=(7,5))
+sns.heatmap(cmat,cmap="BuGn",linewidths=.5,annot=True,cbar=False,ax=ax)
+ax.set_title("")
+ax.set_xlabel("Valor Real")
+ax.set_ylabel("Predicción")
+plt.tight_layout()
+plt.savefig("./models/lstm_rnn2_conf_matrix.png")
+plt.show()
